@@ -1,0 +1,2 @@
+https://github.com/Mirfani340/a428-cicd-labs/tree/react-app
+https://github.com/Mirfani340/simple-python-pyinstaller-app

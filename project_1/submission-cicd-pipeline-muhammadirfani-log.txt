@@ -1,0 +1,85 @@
+Started by user Dicoding Indonesia
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/workspace/submission-cicd-pipeline-muhammadirfani
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] sh
++ docker inspect -f . python:2-alpine
+
+Error: No such object: python:2-alpine
+[Pipeline] isUnix
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] sh
++ docker pull python:2-alpine
+2-alpine: Pulling from library/python
+aad63a933944: Pulling fs layer
+259d822268fb: Pulling fs layer
+10ba96d218d3: Pulling fs layer
+44ba9f6a4209: Pulling fs layer
+44ba9f6a4209: Waiting
+aad63a933944: Download complete
+aad63a933944: Pull complete
+259d822268fb: Verifying Checksum
+259d822268fb: Download complete
+259d822268fb: Pull complete
+10ba96d218d3: Verifying Checksum
+10ba96d218d3: Download complete
+10ba96d218d3: Pull complete
+44ba9f6a4209: Verifying Checksum
+44ba9f6a4209: Download complete
+44ba9f6a4209: Pull complete
+Digest: sha256:724d0540eb56ffaa6dd770aa13c3bc7dfc829dec561d87cb36b2f5b9ff8a760a
+Status: Downloaded newer image for python:2-alpine
+docker.io/library/python:2-alpine
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] withDockerContainer
+Jenkins does not seem to be running inside a container
+$ docker run -t -d -u 1000:1000 -w /var/jenkins_home/workspace/submission-cicd-pipeline-muhammadirfani -v /var/jenkins_home/workspace/submission-cicd-pipeline-muhammadirfani:/var/jenkins_home/workspace/submission-cicd-pipeline-muhammadirfani:rw,z -v /var/jenkins_home/workspace/submission-cicd-pipeline-muhammadirfani@tmp:/var/jenkins_home/workspace/submission-cicd-pipeline-muhammadirfani@tmp:rw,z -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** python:2-alpine cat
+$ docker top e48095cb1d2c645db821255d1390b62a08ce37cef9a069fb35753c44b37dc832 -eo pid,comm
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Git Clone)
+[Pipeline] git
+The recommended git tool is: NONE
+No credentials specified
+Warning: JENKINS-30600: special launcher org.jenkinsci.plugins.docker.workflow.WithContainerStep$Decorator$1@7d169ea9; decorates hudson.Launcher$LocalLauncher@d1a804d will be ignored (a typical symptom is the Git executable not being run inside a designated container)
+ > git rev-parse --resolve-git-dir /var/jenkins_home/workspace/submission-cicd-pipeline-muhammadirfani/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/jenkins-docs/simple-python-pyinstaller-app # timeout=10
+Fetching upstream changes from https://github.com/jenkins-docs/simple-python-pyinstaller-app
+ > git --version # timeout=10
+ > git --version # 'git version 2.30.2'
+ > git fetch --tags --force --progress -- https://github.com/jenkins-docs/simple-python-pyinstaller-app +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+Checking out Revision 128e9ba59f87e29057ab727926dd2e04094672da (refs/remotes/origin/master)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 128e9ba59f87e29057ab727926dd2e04094672da # timeout=10
+ > git branch -a -v --no-abbrev # timeout=10
+ > git branch -D master # timeout=10
+ > git checkout -b master 128e9ba59f87e29057ab727926dd2e04094672da # timeout=10
+Commit message: "Amend final paragraph, since there is no 'scripts' directory."
+ > git rev-list --no-walk 128e9ba59f87e29057ab727926dd2e04094672da # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build)
+[Pipeline] sh
++ python -m py_compile sources/add2vals.py sources/calc.py
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Test)
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/workspace/submission-cicd-pipeline-muhammadirfani@2
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] sh

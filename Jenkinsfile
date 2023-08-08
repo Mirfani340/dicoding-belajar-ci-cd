@@ -11,7 +11,7 @@
             //         git branch: 'react-app', url: '/home/dicoding/a428-cicd-labs'
             //     }
             // }
-            stage('Building') { 
+            stage('Build') { 
                 steps {
                     // sh 'npm install -g yarn'
                     sh 'yarn install' 

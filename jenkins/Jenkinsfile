@@ -34,7 +34,7 @@ pipeline {
         stage('Deploy') {
             agent {
                 docker {
-                    image 'cdrx/pyinstaller-linux:python3'
+                    image 'six8/pyinstaller-alpine'
                 }
             }
             steps {

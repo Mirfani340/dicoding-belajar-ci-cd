@@ -1,0 +1,3 @@
+[submodule "simple-java-maven-app"]
+	path = simple-java-maven-app
+	url = https://github.com/jenkins-docs/simple-java-maven-app

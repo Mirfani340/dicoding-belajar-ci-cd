@@ -1,0 +1,221 @@
+Started by user Dicoding Indonesia
+Obtained jenkins/Jenkinsfile from git https://github.com/Mirfani340/simple-java-maven-app
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/workspace/submission-cicd-pipeline-muhammadirfani-java-app
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+No credentials specified
+ > git rev-parse --resolve-git-dir /var/jenkins_home/workspace/submission-cicd-pipeline-muhammadirfani-java-app/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/Mirfani340/simple-java-maven-app # timeout=10
+Fetching upstream changes from https://github.com/Mirfani340/simple-java-maven-app
+ > git --version # timeout=10
+ > git --version # 'git version 2.30.2'
+ > git fetch --tags --force --progress -- https://github.com/Mirfani340/simple-java-maven-app +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse origin/master^{commit} # timeout=10
+Checking out Revision 00aeab703c8677f37d9b3c86bad8d56f14d4ecce (origin/master)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 00aeab703c8677f37d9b3c86bad8d56f14d4ecce # timeout=10
+Commit message: "adding new stage 'Manual Approval'"
+ > git rev-list --no-walk 00aeab703c8677f37d9b3c86bad8d56f14d4ecce # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] sh
++ docker inspect -f . maven:3.9.0
+.
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] withDockerContainer
+Jenkins seems to be running inside container 379f5d9792bf1e32ef927db1c4f9e7632d0319d6116db0a29c010d713a8e12ab
+but /var/jenkins_home/workspace/submission-cicd-pipeline-muhammadirfani-java-app could not be found among []
+but /var/jenkins_home/workspace/submission-cicd-pipeline-muhammadirfani-java-app@tmp could not be found among []
+$ docker run -t -d -u 1000:1000 -v /root/.m2:/root/.m2 -w /var/jenkins_home/workspace/submission-cicd-pipeline-muhammadirfani-java-app -v /var/jenkins_home/workspace/submission-cicd-pipeline-muhammadirfani-java-app:/var/jenkins_home/workspace/submission-cicd-pipeline-muhammadirfani-java-app:rw,z -v /var/jenkins_home/workspace/submission-cicd-pipeline-muhammadirfani-java-app@tmp:/var/jenkins_home/workspace/submission-cicd-pipeline-muhammadirfani-java-app@tmp:rw,z -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** maven:3.9.0 cat
+$ docker top d6ed7f670a31e691481f28bad208a99dfd36f29d80df57dd219e674379e07894 -eo pid,comm
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Build)
+[Pipeline] sh
++ mvn -B -DskipTests clean package
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ----------------------< com.mycompany.app:my-app >----------------------
+[INFO] Building my-app 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.2.0:clean (default-clean) @ my-app ---
+[INFO] Deleting /var/jenkins_home/workspace/submission-cicd-pipeline-muhammadirfani-java-app/target
+[INFO] 
+[INFO] --- enforcer:3.3.0:enforce (enforce-maven) @ my-app ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireMavenVersion passed
+[INFO] Rule 1: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[INFO] 
+[INFO] --- resources:3.3.0:resources (default-resources) @ my-app ---
+[INFO] skip non existing resourceDirectory /var/jenkins_home/workspace/submission-cicd-pipeline-muhammadirfani-java-app/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ my-app ---
+[INFO] Changes detected - recompiling the module! :source
+[INFO] Compiling 1 source file with javac [debug target 1.8] to target/classes
+[WARNING] bootstrap class path not set in conjunction with -source 8
+[INFO] 
+[INFO] --- resources:3.3.0:testResources (default-testResources) @ my-app ---
+[INFO] skip non existing resourceDirectory /var/jenkins_home/workspace/submission-cicd-pipeline-muhammadirfani-java-app/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ my-app ---
+[INFO] Changes detected - recompiling the module! :dependency
+[INFO] Compiling 1 source file with javac [debug target 1.8] to target/test-classes
+[WARNING] bootstrap class path not set in conjunction with -source 8
+[INFO] 
+[INFO] --- surefire:3.0.0-M8:test (default-test) @ my-app ---
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- jar:3.3.0:jar (default-jar) @ my-app ---
+[INFO] Building jar: /var/jenkins_home/workspace/submission-cicd-pipeline-muhammadirfani-java-app/target/my-app-1.0-SNAPSHOT.jar
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  2.433 s
+[INFO] Finished at: 2023-08-10T14:56:21Z
+[INFO] ------------------------------------------------------------------------
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Test)
+[Pipeline] sh
++ mvn test
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ----------------------< com.mycompany.app:my-app >----------------------
+[INFO] Building my-app 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- enforcer:3.3.0:enforce (enforce-maven) @ my-app ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireMavenVersion passed
+[INFO] Rule 1: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[INFO] 
+[INFO] --- resources:3.3.0:resources (default-resources) @ my-app ---
+[INFO] skip non existing resourceDirectory /var/jenkins_home/workspace/submission-cicd-pipeline-muhammadirfani-java-app/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ my-app ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- resources:3.3.0:testResources (default-testResources) @ my-app ---
+[INFO] skip non existing resourceDirectory /var/jenkins_home/workspace/submission-cicd-pipeline-muhammadirfani-java-app/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ my-app ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- surefire:3.0.0-M8:test (default-test) @ my-app ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.mycompany.app.AppTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.079 s - in com.mycompany.app.AppTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  2.279 s
+[INFO] Finished at: 2023-08-10T14:56:25Z
+[INFO] ------------------------------------------------------------------------
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Manual Approval)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] input
+Input requested
+Approved by Dicoding Indonesia
+[Pipeline] echo
+Continuing with deployment...
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy)
+[Pipeline] sh
++ ./jenkins/scripts/deliver.sh
+The following Maven command installs your Maven-built Java application
+into the local Maven repository, which will ultimately be stored in
+Jenkinss local Maven repository (and the "maven-repository" Docker data
+volume).
++ mvn jar:jar install:install help:evaluate -Dexpression=project.name
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ----------------------< com.mycompany.app:my-app >----------------------
+[INFO] Building my-app 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jar:3.3.0:jar (default-cli) @ my-app ---
+[INFO] 
+[INFO] --- install:3.1.0:install (default-cli) @ my-app ---
+[INFO] Installing /var/jenkins_home/workspace/submission-cicd-pipeline-muhammadirfani-java-app/pom.xml to /var/jenkins_home/workspace/submission-cicd-pipeline-muhammadirfani-java-app/?/.m2/repository/com/mycompany/app/my-app/1.0-SNAPSHOT/my-app-1.0-SNAPSHOT.pom
+[INFO] Installing /var/jenkins_home/workspace/submission-cicd-pipeline-muhammadirfani-java-app/target/my-app-1.0-SNAPSHOT.jar to /var/jenkins_home/workspace/submission-cicd-pipeline-muhammadirfani-java-app/?/.m2/repository/com/mycompany/app/my-app/1.0-SNAPSHOT/my-app-1.0-SNAPSHOT.jar
+[INFO] 
+[INFO] ----------------------< com.mycompany.app:my-app >----------------------
+[INFO] Building my-app 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- help:3.4.0:evaluate (default-cli) @ my-app ---
+[INFO] No artifact parameter specified, using 'com.mycompany.app:my-app:jar:1.0-SNAPSHOT' as project.
+[INFO] 
+my-app
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  1.208 s
+[INFO] Finished at: 2023-08-10T14:56:49Z
+[INFO] ------------------------------------------------------------------------
++ set +x
+The following complex command extracts the value of the <name/> element
+within <project/> of your Java/Maven projects "pom.xml" file.
+++ mvn help:evaluate -Dexpression=project.name
+++ grep '^[^\[]'
++ NAME=my-app
++ set +x
+The following complex command behaves similarly to the previous one but
+extracts the value of the <version/> element within <project/> instead.
+++ mvn help:evaluate -Dexpression=project.version
+++ grep '^[^\[]'
++ VERSION=1.0-SNAPSHOT
++ set +x
+The following command runs and outputs the execution of your Java
+application (which Jenkins built using Maven) to the Jenkins UI.
++ java -jar target/my-app-1.0-SNAPSHOT.jar
+Hello World!
+[Pipeline] sh
++ sleep 60
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+$ docker stop --time=1 d6ed7f670a31e691481f28bad208a99dfd36f29d80df57dd219e674379e07894
+$ docker rm -f --volumes d6ed7f670a31e691481f28bad208a99dfd36f29d80df57dd219e674379e07894
+[Pipeline] // withDockerContainer
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
+

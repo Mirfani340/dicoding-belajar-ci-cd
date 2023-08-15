@@ -1,0 +1,4 @@
+react-app : https://head.a428-cicd-labs.pages.dev/
+java-app : syslog
+
+maaf kak, saya tidak punya aws karena saya tidak bisa daftar aws trialnya, maaf ini saya pakai azure student dan saya tidak tau carannya agar kayak aws di bagian lognya, jadi aku coba copy syslog yang ada di vps azure student ku kak, aku ada azure student karena dari akun mahasiswa dan tidak pakai kartu kredit atau VCC, jadi maaf kak.

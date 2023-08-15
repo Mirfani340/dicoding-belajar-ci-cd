@@ -1,0 +1,388 @@
+Started by user Dicoding Indonesia
+Obtained Jenkinsfile from git https://github.com/Mirfani340/a428-cicd-labs
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/workspace/submission-cicd-pipeline-muhammadirfani-react-app
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+No credentials specified
+ > git rev-parse --resolve-git-dir /var/jenkins_home/workspace/submission-cicd-pipeline-muhammadirfani-react-app/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/Mirfani340/a428-cicd-labs # timeout=10
+Fetching upstream changes from https://github.com/Mirfani340/a428-cicd-labs
+ > git --version # timeout=10
+ > git --version # 'git version 2.30.2'
+ > git fetch --tags --force --progress -- https://github.com/Mirfani340/a428-cicd-labs +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse origin/react-app^{commit} # timeout=10
+Checking out Revision 9e61a1c1f6b4459119ceab422e7b90f2829c109a (origin/react-app)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 9e61a1c1f6b4459119ceab422e7b90f2829c109a # timeout=10
+Commit message: "change project name"
+ > git rev-list --no-walk 299c429c35694a3100b77714c8df8fd0955e1176 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] sh
++ docker inspect -f . node:16.13.0
+.
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] withDockerContainer
+Jenkins seems to be running inside container 379f5d9792bf1e32ef927db1c4f9e7632d0319d6116db0a29c010d713a8e12ab
+but /var/jenkins_home/workspace/submission-cicd-pipeline-muhammadirfani-react-app could not be found among []
+but /var/jenkins_home/workspace/submission-cicd-pipeline-muhammadirfani-react-app@tmp could not be found among []
+$ docker run -t -d -u 1000:1000 -p 3000:3000 -w /var/jenkins_home/workspace/submission-cicd-pipeline-muhammadirfani-react-app -v /var/jenkins_home/workspace/submission-cicd-pipeline-muhammadirfani-react-app:/var/jenkins_home/workspace/submission-cicd-pipeline-muhammadirfani-react-app:rw,z -v /var/jenkins_home/workspace/submission-cicd-pipeline-muhammadirfani-react-app@tmp:/var/jenkins_home/workspace/submission-cicd-pipeline-muhammadirfani-react-app@tmp:rw,z -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** node:16.13.0 cat
+$ docker top 3dd4770b8ba3ad19e8c99a5c79e61b44bd561680b1abfca62f18d360dd6562ff -eo pid,comm
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Build)
+[Pipeline] sh
++ yarn install
+yarn install v1.22.15
+[1/4] Resolving packages...
+[2/4] Fetching packages...
+info fsevents@2.3.2: The platform "linux" is incompatible with this module.
+info "fsevents@2.3.2" is an optional dependency and failed compatibility check. Excluding it from installation.
+info fsevents@1.2.13: The platform "linux" is incompatible with this module.
+info "fsevents@1.2.13" is an optional dependency and failed compatibility check. Excluding it from installation.
+[3/4] Linking dependencies...
+warning "react-scripts > @typescript-eslint/eslint-plugin > tsutils@3.21.0" has unmet peer dependency "typescript@>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta".
+[4/4] Building fresh packages...
+success Saved lockfile.
+Done in 91.60s.
+[Pipeline] sh
++ yarn build
+yarn run v1.22.15
+$ react-scripts build
+
+Creating an optimized production build...
+Compiled successfully.
+
+File sizes after gzip:
+
+  42.04 KB  build/static/js/2.eddfa02b.chunk.js
+  1.01 KB   build/static/js/main.71be878d.chunk.js
+  772 B     build/static/js/runtime-main.c2077527.js
+  302 B     build/static/css/main.eeeddbdb.chunk.css
+
+The project was built assuming it is hosted at /.
+You can control this with the homepage field in your package.json.
+
+The build folder is ready to be deployed.
+You may serve it with a static server:
+
+  yarn global add serve
+  serve -s build
+
+Find out more about deployment here:
+
+  https://cra.link/deployment
+
+Done in 5.79s.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Test)
+[Pipeline] sh
++ ./jenkins/scripts/test.sh
+The following "npm" command (if executed) installs the "cross-env"
+dependency into the local "node_modules" directory, which will ultimately
+be stored in the Jenkins home directory. As described in
+https://docs.npmjs.com/cli/install, the "--save-dev" flag causes the
+"cross-env" dependency to be installed as "devDependencies". For the
+purposes of this tutorial, this flag is not important. However, when
+installing this dependency, it would typically be done so using this
+flag. For a comprehensive explanation about "devDependencies", see
+https://stackoverflow.com/questions/18875674/whats-the-difference-between-dependencies-devdependencies-and-peerdependencies.
++ set +x
+The following "npm" command tests that your simple Node.js/React
+application renders satisfactorily. This command actually invokes the test
+runner Jest (https://facebook.github.io/jest/).
++ npm test
+
+> my-app@0.1.0 test
+> react-scripts test --env=jsdom
+
+PASS src/App.test.js
+  ✓ renders without crashing (23 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       1 passed, 1 total
+Snapshots:   0 total
+Time:        1.885 s
+Ran all test suites.
+Jest did not exit one second after the test run has completed.
+
+This usually means that there are asynchronous operations that weren't stopped in your tests. Consider running Jest with `--detectOpenHandles` to troubleshoot this issue.
+[0;33mOne of your dependencies, babel-preset-react-app, is importing the
+"@babel/plugin-proposal-private-property-in-object" package without
+declaring it in its dependencies. This is currently working because
+"@babel/plugin-proposal-private-property-in-object" is already in your
+node_modules folder for unrelated reasons, but it [1mmay break at any time[0;33m.
+
+babel-preset-react-app is part of the create-react-app project, [1mwhich
+is not maintianed anymore[0;33m. It is thus unlikely that this bug will
+ever be fixed. Add "@babel/plugin-proposal-private-property-in-object" to
+your devDependencies to work around this error. This will make this message
+go away.[0m
+  
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Manual Approval)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] input
+Input requested
+Approved by Dicoding Indonesia
+[Pipeline] echo
+Continuing with deployment...
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy)
+[Pipeline] echo
+Installing Cloudflare Wrangler
+[Pipeline] sh
++ yarn add wrangler
+yarn add v1.22.15
+[1/4] Resolving packages...
+warning wrangler > @esbuild-plugins/node-modules-polyfill > rollup-plugin-node-polyfills > rollup-plugin-inject@3.0.2: This package has been deprecated and is no longer maintained. Please use @rollup/plugin-inject.
+[2/4] Fetching packages...
+info fsevents@2.3.2: The platform "linux" is incompatible with this module.
+info "fsevents@2.3.2" is an optional dependency and failed compatibility check. Excluding it from installation.
+info fsevents@1.2.13: The platform "linux" is incompatible with this module.
+info "fsevents@1.2.13" is an optional dependency and failed compatibility check. Excluding it from installation.
+info @esbuild/android-arm@0.16.3: The platform "linux" is incompatible with this module.
+info "@esbuild/android-arm@0.16.3" is an optional dependency and failed compatibility check. Excluding it from installation.
+info @esbuild/android-arm@0.16.3: The CPU architecture "x64" is incompatible with this module.
+info @esbuild/android-arm64@0.16.3: The platform "linux" is incompatible with this module.
+info "@esbuild/android-arm64@0.16.3" is an optional dependency and failed compatibility check. Excluding it from installation.
+info @esbuild/android-arm64@0.16.3: The CPU architecture "x64" is incompatible with this module.
+info @esbuild/android-x64@0.16.3: The platform "linux" is incompatible with this module.
+info "@esbuild/android-x64@0.16.3" is an optional dependency and failed compatibility check. Excluding it from installation.
+info @esbuild/freebsd-arm64@0.16.3: The platform "linux" is incompatible with this module.
+info "@esbuild/freebsd-arm64@0.16.3" is an optional dependency and failed compatibility check. Excluding it from installation.
+info @esbuild/freebsd-arm64@0.16.3: The CPU architecture "x64" is incompatible with this module.
+info @esbuild/freebsd-x64@0.16.3: The platform "linux" is incompatible with this module.
+info "@esbuild/freebsd-x64@0.16.3" is an optional dependency and failed compatibility check. Excluding it from installation.
+info @esbuild/linux-arm@0.16.3: The CPU architecture "x64" is incompatible with this module.
+info "@esbuild/linux-arm@0.16.3" is an optional dependency and failed compatibility check. Excluding it from installation.
+info @esbuild/darwin-x64@0.16.3: The platform "linux" is incompatible with this module.
+info "@esbuild/darwin-x64@0.16.3" is an optional dependency and failed compatibility check. Excluding it from installation.
+info @esbuild/linux-arm64@0.16.3: The CPU architecture "x64" is incompatible with this module.
+info "@esbuild/linux-arm64@0.16.3" is an optional dependency and failed compatibility check. Excluding it from installation.
+info @esbuild/linux-ia32@0.16.3: The CPU architecture "x64" is incompatible with this module.
+info "@esbuild/linux-ia32@0.16.3" is an optional dependency and failed compatibility check. Excluding it from installation.
+info @esbuild/linux-loong64@0.16.3: The CPU architecture "x64" is incompatible with this module.
+info "@esbuild/linux-loong64@0.16.3" is an optional dependency and failed compatibility check. Excluding it from installation.
+info @esbuild/linux-ppc64@0.16.3: The CPU architecture "x64" is incompatible with this module.
+info "@esbuild/linux-ppc64@0.16.3" is an optional dependency and failed compatibility check. Excluding it from installation.
+info @esbuild/linux-riscv64@0.16.3: The CPU architecture "x64" is incompatible with this module.
+info "@esbuild/linux-riscv64@0.16.3" is an optional dependency and failed compatibility check. Excluding it from installation.
+info @esbuild/linux-mips64el@0.16.3: The CPU architecture "x64" is incompatible with this module.
+info "@esbuild/linux-mips64el@0.16.3" is an optional dependency and failed compatibility check. Excluding it from installation.
+info @esbuild/linux-s390x@0.16.3: The CPU architecture "x64" is incompatible with this module.
+info "@esbuild/linux-s390x@0.16.3" is an optional dependency and failed compatibility check. Excluding it from installation.
+info @esbuild/sunos-x64@0.16.3: The platform "linux" is incompatible with this module.
+info "@esbuild/sunos-x64@0.16.3" is an optional dependency and failed compatibility check. Excluding it from installation.
+info @esbuild/netbsd-x64@0.16.3: The platform "linux" is incompatible with this module.
+info "@esbuild/netbsd-x64@0.16.3" is an optional dependency and failed compatibility check. Excluding it from installation.
+info @esbuild/win32-ia32@0.16.3: The platform "linux" is incompatible with this module.
+info "@esbuild/win32-ia32@0.16.3" is an optional dependency and failed compatibility check. Excluding it from installation.
+info @esbuild/win32-ia32@0.16.3: The CPU architecture "x64" is incompatible with this module.
+info @esbuild/win32-x64@0.16.3: The platform "linux" is incompatible with this module.
+info "@esbuild/win32-x64@0.16.3" is an optional dependency and failed compatibility check. Excluding it from installation.
+info @esbuild/openbsd-x64@0.16.3: The platform "linux" is incompatible with this module.
+info "@esbuild/openbsd-x64@0.16.3" is an optional dependency and failed compatibility check. Excluding it from installation.
+info @esbuild/darwin-arm64@0.16.3: The platform "linux" is incompatible with this module.
+info "@esbuild/darwin-arm64@0.16.3" is an optional dependency and failed compatibility check. Excluding it from installation.
+info @esbuild/darwin-arm64@0.16.3: The CPU architecture "x64" is incompatible with this module.
+info @esbuild/win32-arm64@0.16.3: The platform "linux" is incompatible with this module.
+info "@esbuild/win32-arm64@0.16.3" is an optional dependency and failed compatibility check. Excluding it from installation.
+info @esbuild/win32-arm64@0.16.3: The CPU architecture "x64" is incompatible with this module.
+info @cloudflare/workerd-windows-64@1.20230807.0: The platform "linux" is incompatible with this module.
+info "@cloudflare/workerd-windows-64@1.20230807.0" is an optional dependency and failed compatibility check. Excluding it from installation.
+info @cloudflare/workerd-darwin-64@1.20230807.0: The platform "linux" is incompatible with this module.
+info "@cloudflare/workerd-darwin-64@1.20230807.0" is an optional dependency and failed compatibility check. Excluding it from installation.
+info @cloudflare/workerd-linux-arm64@1.20230807.0: The CPU architecture "x64" is incompatible with this module.
+info "@cloudflare/workerd-linux-arm64@1.20230807.0" is an optional dependency and failed compatibility check. Excluding it from installation.
+info @cloudflare/workerd-darwin-arm64@1.20230807.0: The platform "linux" is incompatible with this module.
+info "@cloudflare/workerd-darwin-arm64@1.20230807.0" is an optional dependency and failed compatibility check. Excluding it from installation.
+info @cloudflare/workerd-darwin-arm64@1.20230807.0: The CPU architecture "x64" is incompatible with this module.
+[3/4] Linking dependencies...
+warning "react-scripts > @typescript-eslint/eslint-plugin > tsutils@3.21.0" has unmet peer dependency "typescript@>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta".
+[4/4] Building fresh packages...
+success Saved lockfile.
+success Saved 54 new dependencies.
+info Direct dependencies
+└─ wrangler@3.5.0
+info All dependencies
+├─ @cloudflare/kv-asset-handler@0.2.0
+├─ @cloudflare/workerd-linux-64@1.20230807.0
+├─ @esbuild-plugins/node-globals-polyfill@0.1.1
+├─ @esbuild-plugins/node-modules-polyfill@0.1.4
+├─ @esbuild/linux-x64@0.16.3
+├─ acorn-walk@8.2.0
+├─ as-table@1.0.55
+├─ better-sqlite3@8.5.0
+├─ bl@4.1.0
+├─ blake3-wasm@2.1.5
+├─ busboy@1.6.0
+├─ capnp-ts@0.7.0
+├─ data-uri-to-buffer@2.0.2
+├─ decompress-response@6.0.0
+├─ deep-extend@0.6.0
+├─ detect-libc@2.0.2
+├─ esbuild@0.16.3
+├─ exit-hook@2.2.1
+├─ expand-template@2.0.3
+├─ fs-constants@1.0.0
+├─ get-source@2.0.12
+├─ github-from-package@0.0.0
+├─ glob-to-regexp@0.4.1
+├─ http-cache-semantics@4.1.1
+├─ mime@3.0.0
+├─ mimic-response@3.1.0
+├─ miniflare@3.20230801.0
+├─ mkdirp-classic@0.5.3
+├─ mustache@4.2.0
+├─ napi-build-utils@1.0.2
+├─ node-abi@3.45.0
+├─ node-forge@1.3.1
+├─ path-to-regexp@6.2.1
+├─ prebuild-install@7.1.1
+├─ printable-characters@1.0.42
+├─ rc@1.2.8
+├─ rollup-plugin-inject@3.0.2
+├─ rollup-plugin-node-polyfills@0.2.1
+├─ selfsigned@2.1.1
+├─ set-cookie-parser@2.6.0
+├─ simple-concat@1.0.1
+├─ simple-get@4.0.1
+├─ stacktracey@2.1.8
+├─ stoppable@1.1.0
+├─ streamsearch@1.1.0
+├─ tar-fs@2.1.1
+├─ tar-stream@2.2.0
+├─ tunnel-agent@0.6.0
+├─ undici@5.23.0
+├─ workerd@1.20230807.0
+├─ wrangler@3.5.0
+├─ xxhash-wasm@1.0.2
+├─ youch@3.2.3
+└─ zod@3.21.4
+Done in 95.14s.
+[Pipeline] echo
+Deploying to cloudflare pages
+[Pipeline] sh
++ CLOUDFLARE_ACCOUNT_ID=a9642fa4405f580f8a93f153a308a441 CLOUDFLARE_API_TOKEN=YW0x-LVcLBV5leiwY2kFAZf-Xlok80Kup6OAcPtp npx wrangler pages publish build --project-name=a428-cicd-labs
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1m`wrangler pages publish` is deprecated and will be removed in the next major version.[0m
+
+  Please use `wrangler pages deploy` instead, which accepts exactly the same arguments.
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mWarning: Your working directory is a git repo and has uncommitted changes[0m
+
+  To silence this warning, pass in --commit-dirty=true
+
+
+Uploading... (10/14)
+Uploading... (11/14)
+Uploading... (13/14)
+Uploading... (14/14)
+✨ Success! Uploaded 4 files (10 already uploaded) (3.94 sec)
+
+✨ Deployment complete! Take a peek over at https://9a78f465.a428-cicd-labs.pages.dev
+[Pipeline] sh
++ ./jenkins/scripts/deliver.sh
+The following "npm" command builds your Node.js/React application for
+production in the local "build" directory (i.e. within the
+"/var/jenkins_home/workspace/simple-node-js-react-app" directory),
+correctly bundles React in production mode and optimizes the build for
+the best performance.
++ npm run build
+
+> my-app@0.1.0 build
+> react-scripts build
+
+Creating an optimized production build...
+Compiled successfully.
+
+File sizes after gzip:
+
+  42.04 KB  build/static/js/2.eddfa02b.chunk.js
+  1.01 KB   build/static/js/main.71be878d.chunk.js
+  772 B     build/static/js/runtime-main.c2077527.js
+  302 B     build/static/css/main.eeeddbdb.chunk.css
+
+The project was built assuming it is hosted at /.
+You can control this with the homepage field in your package.json.
+
+The build folder is ready to be deployed.
+You may serve it with a static server:
+
+  yarn global add serve
+  serve -s build
+
+Find out more about deployment here:
+
+  https://cra.link/deployment
+
++ set +x
+The following "npm" command runs your Node.js/React application in
+development mode and makes the application available for web browsing.
+The "npm start" command has a trailing ampersand so that the command runs
+as a background process (i.e. asynchronously). Otherwise, this command
+can pause running builds of CI/CD applications indefinitely. "npm start"
+is followed by another command that retrieves the process ID (PID) value
+of the previously run process (i.e. "npm start") and writes this value to
+the file ".pidfile".
++ sleep 1
++ npm start
+
+> my-app@0.1.0 start
+> react-scripts start
+
++ echo 650
++ set +x
+Now...
+Visit http://localhost:3000 to see your Node.js/React application in action.
+(This is why you specified the "args -p 3000:3000" parameter when you
+created your initial Pipeline as a Jenkinsfile.)
+[Pipeline] sh
++ sleep 60
+[Pipeline] sh
++ ./jenkins/scripts/kill.sh
+The following command terminates the "npm start" process using its PID
+(written to ".pidfile"), all of which were conducted when "deliver.sh"
+was executed.
++ cat .pidfile
++ kill 650
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+$ docker stop --time=1 3dd4770b8ba3ad19e8c99a5c79e61b44bd561680b1abfca62f18d360dd6562ff
+$ docker rm -f --volumes 3dd4770b8ba3ad19e8c99a5c79e61b44bd561680b1abfca62f18d360dd6562ff
+[Pipeline] // withDockerContainer
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
+

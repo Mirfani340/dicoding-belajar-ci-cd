@@ -1,33 +1,54 @@
-    pipeline {
-        agent {
-            docker {
-                image 'node:16-buster-slim' 
-                args '-p 3000:3000' 
+pipeline {
+    agent {
+        docker {
+            image 'node:16.13.0'
+            args "-p 3000:3000"
+        }
+    }
+    environment {
+        CI = 'true'
+    }
+    stages {
+        stage('Build') {
+            steps {
+                sh 'yarn install'
+                sh 'yarn build'
             }
         }
-        stages {
-            // stage('Git Clone') { 
-            //     steps {
-            //         git branch: 'react-app', url: '/home/dicoding/a428-cicd-labs'
-            //     }
-            // }
-            stage('Building') { 
-                steps {
-                    // sh 'npm install -g yarn'
-                    sh 'yarn install' 
-                }
-            }
-            stage('Test') {
-                steps {
-                    sh './jenkins/scripts/test.sh'
-                }
-            }
-            stage('Deploy') {
+        stage('Test') {
             steps {
+                sh './jenkins/scripts/test.sh'
+            }
+        }
+        stage('Manual Approval') {
+            steps {
+                script {
+                    def userInput = input(
+                        message: 'Lanjutkan ke tahap Deploy?',
+                        parameters: [choice(choices: ['Yes'], description: 'Choose an option', name: 'CONTINUE')]
+                    )
+                    if (userInput == 'Yes') {
+                        echo 'Continuing with deployment...'
+                        // sh './jenkins/scripts/deliver.sh'
+                        // sh 'sleep 60'
+                        // sh './jenkins/scripts/kill.sh'
+                    } else {
+                        echo 'Deployment aborted.'
+                        sh './jenkins/scripts/kill.sh'
+                    }
+                }
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Installing Cloudflare Wrangler'
+                sh 'yarn add wrangler'
+                echo 'Deploying to cloudflare pages'
+                sh 'CLOUDFLARE_ACCOUNT_ID=RAHASIA CLOUDFLARE_API_TOKEN=RAHASIA npx wrangler pages publish build --project-name=RAHASIA'
                 sh './jenkins/scripts/deliver.sh'
-                input message: 'Sudah selesai menggunakan React App? (Klik "Proceed" untuk mengakhiri)'
+                sh 'sleep 60'
                 sh './jenkins/scripts/kill.sh'
             }
         }
-        }
     }
+}

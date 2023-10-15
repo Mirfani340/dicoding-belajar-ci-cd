@@ -12,4 +12,4 @@
       --volume "$HOME":/home \
       --restart=on-failure \
       --env JAVA_OPTS="-Dhudson.plugins.git.GitSCM.ALLOW_LOCAL_CHECKOUT=true" \
-      myjenkins-blueocean:2.346.1-1 
+      myjenkins-blueocean:2.414.2-jdk17
